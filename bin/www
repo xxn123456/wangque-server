@@ -1,0 +1,144 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('demo:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+// app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app.callback());
+
+// const server = require('http').Server(app.callback()); //koa正确姿势
+
+const io = require('socket.io').listen(server); //核心，实现客户端之间交互通信
+
+let users = []
+
+
+// socket.emit: 告诉当前用户
+// io.emit : 广播事件
+io.on("connection", socket => {
+    socket.on("submit", (data) => {
+        let result = users.find(item => {
+            return item.userName == data.userName
+        })
+        socket.emit("login", result)
+        if (!result) {
+            // 存储当前登陆用户的信息
+            socket.userName = data.userName
+            socket.avatar = data.avatar
+
+            // 加入到用户数组
+            users.push(data)
+            socket.emit("loginSuccess", data)
+
+            io.emit("addUser", data)
+            io.emit("userList", users)
+        }
+    })
+
+    socket.on("sendMsg", data => {
+        console.log("有人正在发送消息");
+        io.emit("sendAll", data)
+    })
+
+    socket.on("sendFile", data => {
+        io.emit("sendFileAll", data)
+    })
+
+    // 用户断开连接的时候
+    socket.on('disconnect', () => {
+        // 把当前用户的信息从users中删除掉
+        let idx = users.findIndex(item => item.userName === socket.userName)
+            // 删除掉断开连接的这个人
+        users.splice(idx, 1)
+            // 1. 告诉所有人，有人离开了聊天室
+        io.emit('delUser', {
+                userName: socket.userName,
+                avatar: socket.avatar
+            })
+            // 2. 告诉所有人，userList发生更新
+        io.emit('userList', users)
+    })
+})
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string' ?
+        'Pipe ' + port :
+        'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string' ?
+        'pipe ' + addr :
+        'port ' + addr.port;
+    debug('Listening on ' + bind);
+}
