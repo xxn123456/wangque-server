@@ -62,7 +62,6 @@ class userController {
     // 登录用户
     static async login(ctx) {
         const req = ctx.request.body;
-        console.log("用户民成功",req.userName)
         if (!req.userName || !req.password) {
             return ctx.body = {
                 code: '-1',
@@ -80,7 +79,7 @@ class userController {
                         expiresIn: expireTime
                     });
                     return ctx.body = {
-                        code: '0',
+                        code: '200',
                         token: token,
                         desc: '登陆成功'
                     }
@@ -98,38 +97,7 @@ class userController {
             }
         };
     }
-
-    // 查询用户
-    static async queryUser(ctx) {
-        try {
-            let data = await userModule.getUserInfo(result.user);
-
-            const info = {
-                createdAt: data.createdAt,
-                updatedAt: data.updatedAt,
-                userName: data.userName,
-                userId: data.userId,
-
-            };
-            ctx.status = 200;
-
-            return ctx.body = {
-                code: '200',
-                userInfo: info,
-                desc: '获取用户信息成功'
-            }
-        } catch (error) {
-            console.log("服务器异常");
-            ctx.status = 401;
-
-            return ctx.body = {
-                code: '-1',
-                desc: '服务器异常'
-            }
-        }
-    }
     // 修改用户密码
-
     static async updatePassword(ctx) {
         const req = ctx.request.body;
         if (req.userId && req.password) {
@@ -180,7 +148,7 @@ class userController {
 
                 if (data.rows) {
                     return ctx.body = {
-                        code: 0,
+                        code: 200,
                         desc: '返回用户分页',
                         info: data.rows
                     }
@@ -197,24 +165,25 @@ class userController {
         }
     }
  
+    // 获取用户信息
 
     static async getUserInfo(ctx) {
-
-
-
         const token = ctx.headers.authorization;
+        console.log("是否获取到token",token)
         if (token) {
             try {
+                console.log("开始校验token")
                 const result = await tools.verToken(token);
+
+                console.log("解析的用户信息",result)
 
                 let data = await userModule.getUserInfo(result.user);
                 console.log(data);
                 const info = {
-                    createdAt: data.createdAt,
-                    updatedAt: data.updatedAt,
-                    userName: data.userName,
                     userId: data.userId,
-
+                    userName: data.userName,
+                    avatar:data.avatar
+                   
                 };
                 ctx.status = 200;
 
@@ -224,7 +193,7 @@ class userController {
                     desc: '获取用户信息成功'
                 }
             } catch (error) {
-                console.log("服务器异常");
+                console.log("服务器异常111");
                 ctx.status = 401;
 
                 return ctx.body = {

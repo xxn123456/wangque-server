@@ -16,8 +16,12 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: false,
                 field: 'password'
+            },
+            avatar:{
+                type: DataTypes.STRING,
+                allowNull: false,
+                field: 'avatar'
             }
-
         }, {
             timestamps: false
         }

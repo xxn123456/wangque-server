@@ -47,7 +47,8 @@ const cors = require('koa2-cors')
 
 
 const index = require('./routes/index');
-const user =require('./routes/user')
+const user =require('./routes/user');
+const articleTypeRouter = require('./routes/articleType.js')
 
 onerror(app)
 
@@ -90,6 +91,10 @@ app.use(index.routes(),index.allowedMethods());
 // 导入登录路由
 app.use(user.routes(),user.allowedMethods());
 
+app.use(articleTypeRouter.routes(),articleTypeRouter.allowedMethods());
+
+
+
 
 
 
@@ -120,7 +125,7 @@ app.use(async (ctx, next) => {
 app.use(koajwt({
     secret: '123456'
 }).unless({
-    path: [/^\/user\/regist/, /^\/user\/login/, /^\/public/]
+    path: [/^\/user\/regist/, /^\/user\/login/, /^\/public\*/,/^\/static/]
 
 }))
 module.exports = app
