@@ -49,6 +49,7 @@ const cors = require('koa2-cors')
 const index = require('./routes/index');
 const user =require('./routes/user');
 const articleTypeRouter = require('./routes/articleType.js')
+const blogRouter=require('./routes/blog.js')
 
 onerror(app)
 
@@ -90,8 +91,10 @@ app.use(cors());
 app.use(index.routes(),index.allowedMethods());
 // 导入登录路由
 app.use(user.routes(),user.allowedMethods());
-
+// 文章类别路由
 app.use(articleTypeRouter.routes(),articleTypeRouter.allowedMethods());
+// 文章路由
+app.use(blogRouter.routes(),blogRouter.allowedMethods());
 
 
 
