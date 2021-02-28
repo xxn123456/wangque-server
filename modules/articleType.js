@@ -70,44 +70,39 @@ class ArticleTypeModel {
     static async finAllArticleType(data) {
         let offset = data.pageSize * (data.currentPage - 1);
         let limit = parseInt(data.pageSize);
+
+        let criteria = [];
+
+        if(data.categoryName){
+            criteria.push({categoryName:data.categoryName})
+           
+        }
+        if(data.startTime||data.endTime){
+            criteria.push({
+                            
+                createdAt: {
+                    [Op.between]: [new Date(data.startTime), new Date(data.endTime)]
+
+                }
+            })
+           
+        }
+
+        return await ArticleType.findAndCountAll({
+            
+            where: {
+                [Op.and]:criteria
+            
+            },
+            //offet去掉前多少个数据
+            offset,
+            //limit每页数据数量
+            limit: limit
+
+        })
         
 
-        if (data.categoryName) {
-            return await ArticleType.findAndCountAll({
-                where: {
-
-                    [Op.or]: [{
-                            categoryName: data.categoryName
-                        },
-                        {
-                            createdAt: {
-
-                                [Op.between]: [new Date(data.startTime), new Date(data.endTime)]
-
-                            }
-                        }
-                    ]
-                },
-                //offet去掉前多少个数据
-                offset,
-                //limit每页数据数量
-                limit: limit
-
-            })
-
-
-        } else {
-            console.log("进入分页搜索");
-            return await ArticleType.findAndCountAll({
-                //offet去掉前多少个数据
-                offset,
-                //limit每页数据数量
-                limit: limit
-
-
-            })
-
-        }
+   
 
     }
 

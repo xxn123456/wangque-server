@@ -7,8 +7,12 @@ router.post('/create', blogController.create)
 
 router.post('/findAll', blogController.findAll)
 
+router.post('/findOne', blogController.findOne)
+
 router.post('/update', blogController.update)
 
 router.post('/del', blogController.del)
+
+router.post('/batchDel',blogController.batchDel)
 
 module.exports = router

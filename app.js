@@ -48,8 +48,10 @@ const cors = require('koa2-cors')
 
 const index = require('./routes/index');
 const user =require('./routes/user');
-const articleTypeRouter = require('./routes/articleType.js')
-const blogRouter=require('./routes/blog.js')
+const articleTypeRouter = require('./routes/articleType.js');
+const blogRouter=require('./routes/blog.js');
+
+const uploadRouter = require('./routes/upload.js')
 
 onerror(app)
 
@@ -95,6 +97,10 @@ app.use(user.routes(),user.allowedMethods());
 app.use(articleTypeRouter.routes(),articleTypeRouter.allowedMethods());
 // 文章路由
 app.use(blogRouter.routes(),blogRouter.allowedMethods());
+
+// 文件上传路由
+
+app.use(uploadRouter.routes(),uploadRouter.allowedMethods())
 
 
 
