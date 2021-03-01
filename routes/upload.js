@@ -2,6 +2,8 @@ const Router = require('koa-router');
 const router = new Router({prefix: '/upload'});
 
 const multer = require('koa-multer');
+
+// 上传文章图片
 var storage = multer.diskStorage({
   //文件保存路径
   destination: function (req, file, cb) {
@@ -9,9 +11,7 @@ var storage = multer.diskStorage({
   },
   //修改文件名称
   filename: function (req, file, cb) {
-    console.log("原生文件名称",file.originalname);
     var fileFormat = (file.originalname).split(".");
-    console.log("新文件明",Date.now() + "." + fileFormat[fileFormat.length - 1])
     cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
   }
 })
@@ -19,7 +19,23 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 
-//密码登陆
+// 上传轮播图片
+var storageCarouse = multer.diskStorage({
+      //文件保存路径
+      destination: function (req, file, cb) {
+        cb(null, 'public/images/carousel/')
+      },
+      //修改文件名称
+      filename: function (req, file, cb) {
+        var fileFormat = (file.originalname).split(".");
+        cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
+      }
+    })
+
+var carouselUp =multer({ storage: storageCarouse })
+
+
+// 上传文章图片
 router.post('/articleImg',upload.single('articleImg'), async (ctx, next) => {
      try{
         ctx.response.status = 200;
@@ -40,6 +56,26 @@ router.post('/articleImg',upload.single('articleImg'), async (ctx, next) =>�
    
     })
 
+// 上传广告轮播图片
+router.post('/carousel',carouselUp.single('file'), async (ctx, next) => {
+        try{
+           ctx.response.status = 200;
+             ctx.body = {
+               code:200,
+               url: '/images/carousel/'+ctx.req.file.filename,
+               des: "轮播上传成功"
+             }
+        } catch(err){
+           ctx.response.status = 416;
+             ctx.body = {
+               code:416,
+               des: "轮播上传失败",
+               data:err
+             }
+   
+        }
+      
+       })
 module.exports = router
 
 

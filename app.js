@@ -53,6 +53,8 @@ const blogRouter=require('./routes/blog.js');
 
 const uploadRouter = require('./routes/upload.js')
 
+const carouselRouter = require('./routes/carousel.js')
+
 onerror(app)
 
 
@@ -100,7 +102,14 @@ app.use(blogRouter.routes(),blogRouter.allowedMethods());
 
 // 文件上传路由
 
-app.use(uploadRouter.routes(),uploadRouter.allowedMethods())
+app.use(uploadRouter.routes(),uploadRouter.allowedMethods());
+
+// 轮播路由
+
+app.use(carouselRouter.routes(),carouselRouter.allowedMethods());
+
+
+
 
 
 
