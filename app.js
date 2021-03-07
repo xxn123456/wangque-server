@@ -44,16 +44,21 @@ const remberLoger = require('./logger')
 const koajwt = require('koa-jwt')
 const cors = require('koa2-cors')
 
+const {
+    indexRouter,
+    userRouter,
+    articleTypeRouter,
+    blogRouter,
+    uploadRouter,
+    carouselRouter,
+    musicRouter,
+    wxRouter,
+    biuRouter
+} = require('./routes/mian.js')
 
 
-const index = require('./routes/index');
-const user =require('./routes/user');
-const articleTypeRouter = require('./routes/articleType.js');
-const blogRouter=require('./routes/blog.js');
 
-const uploadRouter = require('./routes/upload.js')
 
-const carouselRouter = require('./routes/carousel.js')
 
 onerror(app)
 
@@ -92,9 +97,9 @@ app.use(logger((str) => {
 
 app.use(cors());
 // routes
-app.use(index.routes(),index.allowedMethods());
+app.use(indexRouter.routes(),indexRouter.allowedMethods());
 // 导入登录路由
-app.use(user.routes(),user.allowedMethods());
+app.use(userRouter.routes(),userRouter.allowedMethods());
 // 文章类别路由
 app.use(articleTypeRouter.routes(),articleTypeRouter.allowedMethods());
 // 文章路由
@@ -108,6 +113,16 @@ app.use(uploadRouter.routes(),uploadRouter.allowedMethods());
 
 app.use(carouselRouter.routes(),carouselRouter.allowedMethods());
 
+// 音乐列表路由
+
+app.use(musicRouter.routes(),musicRouter.allowedMethods());
+
+// 微信登录列表
+
+app.use(wxRouter.routes(),wxRouter.allowedMethods());
+
+
+app.use(biuRouter.routes(),biuRouter.allowedMethods());
 
 
 
