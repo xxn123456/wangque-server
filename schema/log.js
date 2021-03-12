@@ -1,58 +1,29 @@
-const moment = require("moment");
-module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('log', {
-        // 菜单id
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            allowNull: true,
-            autoIncrement: true
-        },
-        // 昵称
-        nickname: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'nickname'
-        },
 
-        method: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'method'
-        },
+const mongoose = require('../config/coon');
 
-        host: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'host'
-        },
+var moment = require('moment'); 
+let musicSchema = new mongoose.Schema({
+    nickname:String,
 
-        url: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'url'
-        },
-        desc: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'desc'
-        },
+    method:String,
 
-        // 创建时间
-        createdAt: {
-            type: DataTypes.DATE
-        },
-        // 更新时间
-        updatedAt: {
-            type: DataTypes.DATE
-        }
+    host:String,
 
-    }, {
-        /**
-         * 如果为true，则表示名称和model相同，即user
-         * 如果为fasle，mysql创建的表名称会是复数，即users
-         * 如果指定的表名称本身就是复数，则形式不变
-         */
-        freezeTableName: true
-    });
-}
+    url:String,
+    desc:String,
+  createdAt:{
+    type: String,
+    default: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+  }
+ ,
+  // 更新时间
+  updatedAt: {
+    type: String,
+    default: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+  }
+})
+
+
+const LogSure = mongoose.model('logSure', musicSchema, 'logSure')
+
+module.exports = LogSure

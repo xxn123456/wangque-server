@@ -1,6 +1,6 @@
 //功能处理
 const userModule = require("../modules/user");
-const logModule = require("../modules/log")
+
 const jwt = require('jsonwebtoken');
 
 const logger = require("../logger")
@@ -178,7 +178,7 @@ class userController {
                 console.log("解析的用户信息",result)
 
                 let data = await userModule.getUserInfo(result.user);
-                console.log(data);
+               
                 const info = {
                     userId: data.userId,
                     userName: data.userName,
@@ -193,12 +193,12 @@ class userController {
                     desc: '获取用户信息成功'
                 }
             } catch (error) {
-                console.log("服务器异常111");
+            
                 ctx.status = 401;
 
                 return ctx.body = {
                     code: '-1',
-                    desc: '服务器异常'
+                    desc: 'token失效，请重新拉去'
                 }
             }
         } else {
@@ -206,7 +206,7 @@ class userController {
 
             return ctx.body = {
                 code: '-1',
-                desc: '登陆过期，请重新登陆'
+                desc: 'token,不存在请重新输入'
             }
         }
     }
