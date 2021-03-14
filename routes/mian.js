@@ -14,6 +14,8 @@ const wxRouter = require('./wxLogin.js')
 
 const biuRouter = require ('./biu.js')
 
+const otherRouter = require ('./other.js')
+
 
 module.exports={
     indexRouter,
@@ -24,5 +26,6 @@ module.exports={
     carouselRouter,
     musicRouter,
     wxRouter,
-    biuRouter
+    biuRouter,
+    otherRouter
 }

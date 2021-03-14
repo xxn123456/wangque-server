@@ -53,7 +53,8 @@ const {
     carouselRouter,
     musicRouter,
     wxRouter,
-    biuRouter
+    biuRouter,
+    otherRouter
 } = require('./routes/mian.js')
 
 
@@ -112,6 +113,10 @@ app.use(wxRouter.routes(),wxRouter.allowedMethods());
 
 
 app.use(biuRouter.routes(),biuRouter.allowedMethods());
+
+app.use(otherRouter.routes(),otherRouter.allowedMethods());
+
+
 
 
 
