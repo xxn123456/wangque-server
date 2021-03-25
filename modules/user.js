@@ -7,8 +7,6 @@ const Sequelize = db.sequelize
 //引入数据表模型
 const user = Sequelize.import('../schema/user')
 
-const article = Sequelize.import('../schema/article')
-
 const lession = Sequelize.import('../schema/lession')
 
 const request = require('request')
@@ -101,35 +99,6 @@ class userModule {
         })
     }
     static async queryUserBook(id) {
-
-        user.belongsToMany(article, {
-            through: lession,
-            foreignKey: 'userId',
-            otherKey: 'aId'
-        });
-        console.log("查询失败");
-        // user.hasOne(article, { foreignKey: 'userId', targetKey: 'userId' });
-        return await user.findAll({
-            // where: {
-            //     userId: id
-            // },
-            attributes: ['userId', 'password'],
-            include: [{
-                model: article,
-            }]
-
-        })
-
-        // article.belongsToMany(user, { through: lession, foreignKey: 'aId', otherKey: 'userId' });
-        // console.log("查询失败");
-
-        // return await article.findAll({
-
-        //     include: [{
-        //         model: user,
-        //     }]
-
-        // })
     }
     static async delUser(userId) {
         return await user.destroy({

@@ -1,10 +1,23 @@
 const BlogModel = require('../modules/blog.js')
 
+
+
+
 class BlogController {
+
 
     // 创建文章
     static async create(ctx) {
+
+
         let req = ctx.request.body;
+
+       
+
+
+        console.log("创建文章", ctx.request.body);
+
+
         try {
              
             const data = await BlogModel.create(req);

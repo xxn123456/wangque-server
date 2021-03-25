@@ -1,6 +1,5 @@
 const Router = require('koa-router');
 const router = new Router();
-const ArtileController = require('../controllers/article');
 const userController = require('../controllers/user');
 const MailController = require('../controllers/mail');
 const MgController = require('../controllers/mg');
@@ -119,11 +118,6 @@ router.post('/mgupdata', MgController.updata);
 
 router.post('/sendMail', MailController.sendMail);
 router.post('/verityMail', MailController.verityMail);
-
-router.post('/article/create', ArtileController.create);
-
-//获取文章详情
-router.get('/article/:id', ArtileController.detail);
 
 // router.post('/regist', userController.create)
 

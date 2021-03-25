@@ -9,6 +9,7 @@
     "test": "mocha test/*.test.js"
   },
   "dependencies": {
+    "connect-multiparty": "^2.2.0",
     "debug": "^4.1.1",
     "ioredis": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
