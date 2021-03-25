@@ -54,7 +54,8 @@ const {
     musicRouter,
     wxRouter,
     biuRouter,
-    otherRouter
+    otherRouter,
+    msgRouter
 } = require('./routes/mian.js')
 
 
@@ -115,6 +116,10 @@ app.use(wxRouter.routes(),wxRouter.allowedMethods());
 app.use(biuRouter.routes(),biuRouter.allowedMethods());
 
 app.use(otherRouter.routes(),otherRouter.allowedMethods());
+
+app.use(msgRouter.routes(),msgRouter.allowedMethods());
+
+
 
 
 

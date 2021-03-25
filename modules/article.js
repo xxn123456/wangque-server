@@ -6,7 +6,7 @@ const Sequelize = db.sequelize;
 
 // 引入数据表模型
 const Article = Sequelize.import('../schema/article');
-Article.sync({ force: false }); //自动创建表
+Article.sync({ force: true }); //自动创建表
 
 class ArticleModel {
     /**
@@ -20,6 +20,7 @@ class ArticleModel {
             author: data.author, //作者
             content: data.content, //文章内容
             category: data.category, //文章分类
+            book:data.book //文章封面
         });
     }
 

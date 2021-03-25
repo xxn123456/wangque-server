@@ -9,7 +9,7 @@ class articleController {
     static async create(ctx) {
         //接收客服端
         let req = ctx.request.body;
-        if (req.title && req.author && req.content && req.category) {
+        if (req.title && req.content && req.category) {
             try {
                 //创建文章模型
                 const ret = await ArticleModel.createArticle(req);

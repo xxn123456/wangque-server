@@ -16,6 +16,8 @@ const biuRouter = require ('./biu.js')
 
 const otherRouter = require ('./other.js')
 
+const msgRouter = require ('./msg.js')
+
 
 module.exports={
     indexRouter,
@@ -27,5 +29,6 @@ module.exports={
     musicRouter,
     wxRouter,
     biuRouter,
-    otherRouter
+    otherRouter,
+    msgRouter
 }

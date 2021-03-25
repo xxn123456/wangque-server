@@ -1,54 +1,51 @@
 const moment = require("moment");
 module.exports = function(sequelize, DataTypes) {
-    const article = sequelize.define('article', {
+    const Msg = sequelize.define('message', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: true,
             autoIncrement: true
         },
-        //文章标题
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'title'
-        },
-        //作者
-        author: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'author'
-        },
-        //内容
+        //评价内容
         content: {
             type: DataTypes.STRING,
             allowNull: true,
             field: 'content'
         },
-        //文章分类
-        category: {
-            type: DataTypes.STRING,
+        //对应文章id
+        articleId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'category'
+            field: 'articleId',
         },
-        book:{
+        // 评价人
+        qq: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: 'book'
-
+            field: 'qq'
         },
-        price: {
+        // qq 头像
+        qqAvtor: {
             type: DataTypes.STRING,
-            allowNull: false,
-            field: 'price'
+            allowNull: true,
+            field: 'qqAvtor'
         },
         // 创建时间
         createdAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            get () {
+                // console.log(this.getDataValue('created_time'))
+                return this.getDataValue('createdAt') ? moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss') : null;
+              }
         },
         // 更新时间
         updatedAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            get () {
+                // console.log(this.getDataValue('created_time'))
+                return this.getDataValue('updatedAt') ? moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss') : null;
+              }
         }
     }, {
         /**
@@ -58,5 +55,5 @@ module.exports = function(sequelize, DataTypes) {
          */
         freezeTableName: true
     });
-    return article
+    return Msg
 }

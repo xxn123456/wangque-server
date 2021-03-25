@@ -22,21 +22,26 @@ module.exports = function(sequelize, DataTypes) {
         },
         // 访问量
         visitNum: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: DataTypes.INTEGER,
             field: 'visitNum',
-            defaultValue:1
+            defaultValue:0
         },
         userId: {
             type: DataTypes.STRING,
             allowNull: false,
             field: 'userId',
-            defaultValue:'1'
+            defaultValue:'-'
         },
         content: {
             type: DataTypes.TEXT,
             allowNull: false,
             field: 'content'
+        },
+
+        book: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'book'
         },
         // 创建时间
         createdAt: {
