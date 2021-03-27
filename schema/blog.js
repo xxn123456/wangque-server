@@ -27,10 +27,9 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue:0
         },
         userId: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'userId',
-            defaultValue:'-'
+            field: 'userId'
         },
         content: {
             type: DataTypes.TEXT,

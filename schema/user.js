@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
     const user = sequelize.define(
         'user', {
-            userId: {
+            id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 allowNull: true,
@@ -21,9 +21,24 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: false,
                 field: 'avatar'
+            },
+            createdAt: {
+                type: DataTypes.DATE,
+                get () {
+                    // console.log(this.getDataValue('created_time'))
+                    return this.getDataValue('createdAt') ? moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss') : null;
+                  }
+            },
+            // 更新时间
+            updatedAt: {
+                type: DataTypes.DATE,
+                get () {
+                    // console.log(this.getDataValue('created_time'))
+                    return this.getDataValue('updatedAt') ? moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss') : null;
+                  }
             }
         }, {
-            timestamps: false
+            freezeTableName: true
         }
     )
 

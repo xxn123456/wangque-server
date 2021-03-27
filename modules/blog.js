@@ -10,7 +10,7 @@ const {
 // 引入数据表模型
 const Blog = Sequelize.import('../schema/blog.js');
 Blog.sync({
-    force: true
+    force: false
 }); //自动创建表
 
 class BlogModel {
