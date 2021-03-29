@@ -1,3 +1,6 @@
+
+const moment = require("moment");
+
 module.exports = function(sequelize, DataTypes) {
     const user = sequelize.define(
         'user', {
@@ -38,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
                   }
             }
         }, {
+            
             freezeTableName: true
         }
     )

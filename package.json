@@ -1,12 +1,12 @@
 {
-  "name": "zhihu",
+  "name": "test",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node bin/www",
     "dev": "./node_modules/.bin/nodemon bin/www",
     "prd": "pm2 start bin/www",
-    "test": "mocha test/*.test.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "connect-multiparty": "^2.2.0",
@@ -30,11 +30,10 @@
     "mysql2": "^2.1.0",
     "nodemailer": "^6.4.10",
     "path": "^0.11.14",
-    "pug": "^2.0.3",
-    "sequelize": "^5.21.10",
+    "sequelize": "^5.22.3",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^1.19.1"
   }
 }

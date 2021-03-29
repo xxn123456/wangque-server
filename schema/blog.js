@@ -1,6 +1,8 @@
 const moment = require("moment");
+
+
 module.exports = function(sequelize, DataTypes) {
-    const blog = sequelize.define('blog', {
+    const Blog = sequelize.define('blog', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -12,6 +14,12 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             field: 'title'
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            field: 'userId',
+            unique: true
         },
         //文章类别
         articleTypeId: {
@@ -66,5 +74,7 @@ module.exports = function(sequelize, DataTypes) {
          */
         freezeTableName: true
     });
-    return blog
+
+    return Blog
+
 }

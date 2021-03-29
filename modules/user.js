@@ -7,7 +7,7 @@ const Sequelize = db.sequelize
 //引入数据表模型
 const user = Sequelize.import('../schema/user')
 
-const lession = Sequelize.import('../schema/lession')
+
 
 const request = require('request')
 

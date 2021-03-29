@@ -3,9 +3,6 @@ const userModule = require("../modules/user");
 
 const jwt = require('jsonwebtoken');
 
-const logger = require("../logger")
-
-
 //解析token
 const tools = require('../public/tool')
 

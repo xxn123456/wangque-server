@@ -3,15 +3,19 @@ const db = require('../config/db');
 
 // 引入sequelize对象
 const Sequelize = db.sequelize;
+
 const {
     Op
 } = require("sequelize");
 
 // 引入数据表模型
 const Blog = Sequelize.import('../schema/blog.js');
-Blog.sync({
-    force: false
-}); //自动创建表
+
+const ey_article = Sequelize.import('../schema/ey_article.js');
+
+const ey_user = Sequelize.import('../schema/ey_user.js');
+
+
 
 class BlogModel {
     /**
@@ -79,41 +83,17 @@ class BlogModel {
     }
 
     // 对文章类别进行搜索分页显示
-    static async finAll(data) {
-        console.log("开始查找")
-        let offset = data.pageSize * (data.currentPage - 1);
-        let limit = parseInt(data.pageSize);
-        let criteria = [];
+    static async findAll(data) {
+        ey_article.hasOne(ey_user,{ foreignKey: 'id', targetKey: 'uid' });
+        
+        let bb = await ey_article.findAll({
+                   include: [{   
+                        model: ey_user
+                   }]
 
-        if (data.title) {
-            criteria.push({
-                title: data.title
-            })
-        }
-        if (data.startTime || data.endTime) {
-            criteria.push({
-                createdAt: {
-                    [Op.between]: [new Date(data.startTime), new Date(data.endTime)]
-                }
-            })
-
-        }
-
-        return await Blog.findAndCountAll({
-
-            where: {
-                [Op.and]: criteria
-            },
-            //offet去掉前多少个数据
-            offset,
-            //limit每页数据数量
-            limit: limit
-
-        })
-
-
-
-
+        });
+        
+        return bb
     }
 
 }

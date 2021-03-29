@@ -10,6 +10,7 @@ class musicModel {
      */
     static async create(data) {
 
+
         return await Music.create({
             // 邮箱
             author: data.author,
