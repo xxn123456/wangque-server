@@ -4,6 +4,8 @@ const blogController = require('../controllers/blog');
 
 const multer = require('koa-multer');
 
+const validator = require("../util/checkToken.js")
+
 // 上传文章图片
 var storage = multer.diskStorage({
   //文件保存路径
@@ -39,16 +41,16 @@ router.post('/upBook',upload.single('book'), async (ctx, next) => {
   
    })
 //密码登陆
-router.post('/create',blogController.create)
+router.post('/create',validator,blogController.create)
 
-router.post('/findAll', blogController.findAll)
+router.post('/findAll',validator,blogController.findAll)
 
-router.post('/findOne', blogController.findOne)
+router.post('/findOne',validator,blogController.findOne)
 
-router.post('/update', blogController.update)
+router.post('/update',validator, blogController.update)
 
-router.post('/del', blogController.del)
+router.post('/del',validator, blogController.del)
 
-router.post('/batchDel',blogController.batchDel)
+router.post('/batchDel',validator,blogController.batchDel)
 
 module.exports = router

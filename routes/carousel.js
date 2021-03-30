@@ -2,19 +2,21 @@ const Router = require('koa-router');
 const router = new Router({prefix: '/carousel'});
 const carouselController = require('../controllers/carousel');
 
+const validator = require("../util/checkToken.js")
+
 //密码登陆
-router.post('/create', carouselController.create)
+router.post('/create', validator,carouselController.create)
 
-router.post('/findAll', carouselController.findAll)
+router.post('/findAll', validator,carouselController.findAll)
 
 
-router.post('/update', carouselController.updata)
+router.post('/update',validator, carouselController.updata)
 
-router.post('/del', carouselController.del)
+router.post('/del', validator,carouselController.del)
 
-router.post('/batchDel',carouselController.batchDel)
+router.post('/batchDel',validator,carouselController.batchDel)
 
-router.post('/queryCarousel',carouselController.queryCarousel)
+router.post('/queryCarousel',validator,carouselController.queryCarousel)
 
 
 

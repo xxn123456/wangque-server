@@ -2,15 +2,17 @@ const Router = require('koa-router');
 const router = new Router({prefix: '/articleType'});
 const articleTypeController = require('../controllers/articleType.js');
 
+const validator = require("../util/checkToken.js")
+
 // 创建文章类别
 
-router.post('/create', articleTypeController.create)
-router.post('/findAll', articleTypeController.findAll)
+router.post('/create',validator,articleTypeController.create)
+router.post('/findAll',validator,articleTypeController.findAll)
 
-router.post('/updata', articleTypeController.updata)
+router.post('/updata',validator,articleTypeController.updata)
 
-router.post('/del', articleTypeController.del)
+router.post('/del',validator,articleTypeController.del)
 
-router.post('/batchDel', articleTypeController.batchDel)
+router.post('/batchDel',validator,articleTypeController.batchDel)
 
 module.exports = router

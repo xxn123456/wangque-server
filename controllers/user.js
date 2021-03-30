@@ -18,7 +18,7 @@ class userController {
             about: msg
         }
 
-        // const req = ctx.request.body;
+        const req = ctx.request.body;
         // if (req.userName && req.password) {
         //     try {
         //         const query = await userModule.getUserInfo(req.userName);

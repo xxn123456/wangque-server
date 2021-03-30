@@ -2,6 +2,8 @@ const Router = require('koa-router');
 const router = new Router({prefix: '/user'});
 const userController = require('../controllers/user');
 
+
+
 //密码登陆
 router.post('/login', userController.login)
 

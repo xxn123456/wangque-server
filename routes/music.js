@@ -2,6 +2,8 @@ const Router = require('koa-router');
 const router = new Router({prefix: '/music'});
 const musicController = require('../controllers/music');
 
+const validator = require("../util/checkToken.js")
+
 const multer = require('koa-multer');
 
 // 上传文章图片
@@ -46,13 +48,13 @@ router.post('/upload',upload.single('file'), async (ctx, next) => {
 
 
 //密码登陆
-router.post('/create',musicController.create)
+router.post('/create',validator,musicController.create)
 
-router.post('/update',musicController.update)
+router.post('/update',validator,musicController.update)
 
-router.post('/del',musicController.del)
+router.post('/del',validator,musicController.del)
 
-router.post('/findAll',musicController.findAll)
+router.post('/findAll',validator,musicController.findAll)
 
 
 module.exports = router

@@ -136,6 +136,7 @@ class ArticleTypeController {
     // 查询所有分页
 
     static async findAll(ctx) {
+
         //接收客服端
         let req = ctx.request.body;
         if (req.currentPage && req.pageSize) {
