@@ -11,9 +11,25 @@ const {
 // 引入数据表模型
 const Blog = Sequelize.import('../schema/blog.js');
 
-const ey_article = Sequelize.import('../schema/ey_article.js');
+const BlogType = Sequelize.import('../schema/articleType.js');
 
-const ey_user = Sequelize.import('../schema/ey_user.js');
+
+const User = Sequelize.import('../schema/user.js');
+
+// 进行表关联查询
+
+Blog.hasOne(BlogType, {
+    foreignKey: 'id',
+    targetKey: 'articleTypeId'
+});
+
+Blog.hasOne(User, {
+    foreignKey: 'id',
+    targetKey: 'userId'
+});
+
+
+
 
 
 
@@ -35,7 +51,7 @@ class BlogModel {
     }
     // 更新文章类别
     static async update(data) {
-       
+
         return await Blog.update({
             title: data.title, //标题
             articleTypeId: data.articleTypeId,
@@ -50,9 +66,7 @@ class BlogModel {
     }
     // 对文章进行删除
     static async del(id) {
-        console.log("进入删除逻辑")
-         
-        
+
         return await Blog.destroy({
             where: {
                 id
@@ -74,7 +88,7 @@ class BlogModel {
      * @returns {Promise<Model>}
      */
     static async detail(id) {
-        console.log("开始查找这条信息",id)
+        console.log("开始查找这条信息", id)
         return await Blog.findOne({
             where: {
                 id
@@ -84,16 +98,40 @@ class BlogModel {
 
     // 对文章类别进行搜索分页显示
     static async findAll(data) {
-        ey_article.hasOne(ey_user,{ foreignKey: 'id', targetKey: 'uid' });
-        
-        let bb = await ey_article.findAll({
-                   include: [{   
-                        model: ey_user
-                   }]
+
+        let offset = data.pageSize * (data.currentPage - 1);
+        let limit = parseInt(data.pageSize);
+
+        let criteria = [];
+
+        if (data.categoryName) {
+            criteria.push({
+                categoryName: data.categoryName
+            })
+
+        }
+        if (data.startTime || data.endTime) {
+            criteria.push({
+
+                createdAt: {
+                    [Op.between]: [new Date(data.startTime), new Date(data.endTime)]
+
+                }
+            })
+
+        }
+
+
+        return await Blog.findAndCountAll({
+            include: [{
+                    model: BlogType
+                },
+                {
+                    model: User
+                }
+            ]
 
         });
-        
-        return bb
     }
 
 }
