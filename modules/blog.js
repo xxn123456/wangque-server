@@ -18,6 +18,8 @@ const User = Sequelize.import('../schema/user.js');
 
 // 进行表关联查询
 
+
+
 Blog.hasOne(BlogType, {
     foreignKey: 'id',
     targetKey: 'articleTypeId'

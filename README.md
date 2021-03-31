@@ -1,9 +1,38 @@
 ## 忘却之都-博客后台
 ++ 联系方式qq:2363577442 薯条 只为成就最好的自己 ，如果觉得喜欢给我点个赞吧 ++
 
-> 简介 基于最新的koa 2 进行开发，技术要点 1 针对 数据需求多样性,整合mysql 与moogose  2 增加对数据库 时间维度的操作 3 引入soket.io 进行 实时通信 4 包含常用数据操作实例 ,mysql与 moogose 的增删查改  5 加入文件，图片上传 6 加入 企业级别开发 表格导出，邮件发送等功能 7 采用session 以及 jwt 进行数据安全处理 8 批量注册路由
+接口服务已经部署到阿里云 http://shutiaogege.top:3000 端口下面
 
-> 后续 整合mysql之间表关联，moogose 的聚合管道 会基于koa 搭建qq 开发平台跟 微信开放平台，寄语，新的高度，扫码登录，一键分享，你的心情。随时随地分析你的心情，基于soket.io 搭建在线实时弹幕，事实讨论,激情期待
+请求示例
+
+http://shutiaogege.top:3000/user/login
+
+formData
+
+``` js
+
+userName:"",
+password:""
+
+
+```
+
+返回
+
+
+```json
+
+{
+    "code": "200",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiaHNoIiwicGFzc1dvcmQiOiJ5amgxMjM0NTYiLCJpYXQiOjE2MTcxODI5NzksImV4cCI6MTYxNzE5MDE3OX0.57qe1y_Bo_dADUy-mXT1XHPSQtuIvBdvm3FKYq_wZDE",
+    "desc": "登陆成功"
+}
+
+```
+
+> 简介 基于最新的koa 2 进行开发，技术要点 1 针对 数据需求多样性,整合mysql 与moogose  2 增加对数据库 时间维度的操作 3 引入soket.io 进行 实时通信 4 包含常用数据操作实例 ,mysql与 moogose 的增删查改  5 加入文件，图片上传 6 加入 企业级别开发 表格导出，邮件发送等功能 7 采用session 以及 jwt 进行数据安全处理 8 批量注册路由 9 mysql 联表查询 9 mongose 聚合管道
+
+> 后续 会基于koa 搭建qq 开发平台跟 微信开放平台，寄语，新的高度，扫码登录，一键分享，你的心情。随时随地分析你的心情，基于soket.io 搭建在线实时弹幕，事实讨论,激情期待
 
 > 相关 [忘却之都(nuxt 版)](https://github.com/xxn123456/wangque) [忘却之都(koa 服务版)] [忘却之都(vue 管理后台)](https://github.com/xxn123456/wangque-admin)(https://github.com/xxn123456/wangque-server)
 
