@@ -9,6 +9,7 @@ const {
 
 // 引入数据表模型
 const ArticleType = Sequelize.import('../schema/articleType.js');
+
 ArticleType.sync({
     force: false
 }); //自动创建表
@@ -23,14 +24,16 @@ class ArticleTypeModel {
     static async createArticleType(data) {
         return await ArticleType.create({
             categoryName: data.categoryName, //标题
-            categoryCreater: data.categoryCreater
+            categoryCreater: data.categoryCreater,
+            icon:data.icon
         });
     }
     // 更新文章类别
     static async upDataArticleType(data) {
         return await ArticleType.update({
             categoryName: data.categoryName, //标题
-            categoryCreater: data.categoryCreater
+            categoryCreater: data.categoryCreater,
+            icon:data.icon
         }, {
             where: {
                 id: data.id
@@ -66,6 +69,11 @@ class ArticleTypeModel {
             }
         });
     }
+
+   
+
+
+
     // 对文章类别进行搜索分页显示
     static async finAllArticleType(data) {
         let offset = data.pageSize * (data.currentPage - 1);
@@ -77,6 +85,7 @@ class ArticleTypeModel {
             criteria.push({categoryName:data.categoryName})
            
         }
+        
         if(data.startTime||data.endTime){
             criteria.push({
                             

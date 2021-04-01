@@ -13,6 +13,14 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             field: 'categoryName'
         },
+
+        icon: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'icon'
+        },
+
+
         //类别下面存在的文章数量
         categoryNum: {
             type: DataTypes.STRING,
