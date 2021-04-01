@@ -20,7 +20,11 @@ module.exports = function(sequelize, DataTypes) {
             field: 'icon'
         },
 
-
+        leftNavUrl: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'leftNavUrl'
+        },
         //类别下面存在的文章数量
         categoryNum: {
             type: DataTypes.STRING,

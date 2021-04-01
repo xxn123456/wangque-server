@@ -25,7 +25,8 @@ class ArticleTypeModel {
         return await ArticleType.create({
             categoryName: data.categoryName, //标题
             categoryCreater: data.categoryCreater,
-            icon:data.icon
+            icon:data.icon,
+            leftNavUrl:data.leftNavUrl
         });
     }
     // 更新文章类别
@@ -33,6 +34,7 @@ class ArticleTypeModel {
         return await ArticleType.update({
             categoryName: data.categoryName, //标题
             categoryCreater: data.categoryCreater,
+            leftNavUrl:data.leftNavUrl,
             icon:data.icon
         }, {
             where: {
@@ -69,9 +71,6 @@ class ArticleTypeModel {
             }
         });
     }
-
-   
-
 
 
     // 对文章类别进行搜索分页显示
