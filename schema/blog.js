@@ -48,7 +48,15 @@ module.exports = function(sequelize, DataTypes) {
         book: {
             type: DataTypes.STRING,
             allowNull: true,
-            field: 'book'
+            field: 'book',
+            get(){
+                if(this.getDataValue('book')==null){
+                    return "/images/book/article-pic.png"
+                }else{
+                    return this.getDataValue('book')
+                }
+            }
+
         },
         // 创建时间
         createdAt: {

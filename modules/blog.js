@@ -112,6 +112,16 @@ class BlogModel {
             })
 
         }
+
+        
+        if (data.categoryId) {
+            criteria.push({
+                articleTypeId: data.categoryId
+            })
+
+        }
+
+
         if (data.startTime || data.endTime) {
             criteria.push({
 
@@ -125,6 +135,10 @@ class BlogModel {
 
 
         return await Blog.findAndCountAll({
+            where: {
+                [Op.and]:criteria
+            
+            },
             include: [{
                     model: BlogType
                 },
