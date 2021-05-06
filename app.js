@@ -42,6 +42,7 @@ const Moment = require("moment");
 const remberLoger = require('./logger')
 // 导入jwt
 const koajwt = require('koa-jwt')
+
 const cors = require('koa2-cors')
 
 // routes
@@ -77,6 +78,11 @@ app.use(logger((str) => {
 app.use(cors());
 
 app.use(registerRouter());
+
+
+
+
+
 
 
 

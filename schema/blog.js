@@ -17,7 +17,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: true,
             field: 'userId',
             unique: true
         },
@@ -36,12 +35,12 @@ module.exports = function(sequelize, DataTypes) {
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+           
             field: 'userId'
         },
         content: {
             type: DataTypes.TEXT,
-            allowNull: false,
+           
             field: 'content'
         },
 
