@@ -1,9 +1,9 @@
-const JobModel = require('../modules/job.js')
+const infoModel = require('../../modules/job/info.js')
 
 
 
 
-class JobController {
+class infoController {
 
 
     // 创建文章
@@ -12,9 +12,9 @@ class JobController {
 
         let req = ctx.request.body;
         try {
-             
-            const data = await JobModel.create(req);
-        
+
+            const data = await infoModel.create(req);
+
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -24,7 +24,7 @@ class JobController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '创建文章失败',
                 data: err
             }
@@ -39,11 +39,11 @@ class JobController {
     static async update(ctx) {
         let req = ctx.request.body;
         try {
-             
-            let data = await JobModel.update(req);
-           
-           
-        
+
+            let data = await infoModel.update(req);
+
+
+
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -53,7 +53,7 @@ class JobController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '修改文章失败',
                 data: err
             }
@@ -68,9 +68,9 @@ class JobController {
     static async del(ctx) {
         let req = ctx.request.body;
         try {
-             
-            const data = await JobModel.del(req.id);
-        
+
+            const data = await infoModel.del(req.id);
+
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -80,7 +80,7 @@ class JobController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '删除文章失败',
                 data: err
             }
@@ -98,11 +98,11 @@ class JobController {
         if (req.batchList) {
             try {
                 //创建文章模型
-                const data=await JobModel.bacthDel(req.batchList);
+                const data = await infoModel.bacthDel(req.batchList);
                 ctx.response.status = 200;
                 ctx.body = {
                     code: 200,
-                    articleType:data,
+                    articleType: data,
                     des: '批量删除文章类别成功',
                 }
             } catch (err) {
@@ -127,11 +127,11 @@ class JobController {
     static async findAll(ctx) {
 
         let req = ctx.request.body;
-       
 
-      
+
+
         try {
-            let  data = await JobModel.findAll(req);
+            let data = await infoModel.findAll(req);
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -141,7 +141,7 @@ class JobController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '查找文章失败',
                 data: err
             }
@@ -155,18 +155,22 @@ class JobController {
 
     static async findOne(ctx) {
         let req = ctx.request.body;
+
+       
         try {
-            let  data = await JobModel.detail(req.id);
+            let data = await infoModel.detail(req.id);
+
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
                 msg: '查找文章详情成功',
                 data
             }
+
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '查找文章详情失败',
                 data: err
             }
@@ -177,4 +181,4 @@ class JobController {
     }
 
 }
-module.exports = JobController
+module.exports = infoController

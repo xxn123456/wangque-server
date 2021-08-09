@@ -1,11 +1,11 @@
 // 引入mysql的配置文件
-const db = require('../config/db');
+const db = require('../../config/db');
 
 // 引入sequelize对象
 const Sequelize = db.sequelize;
 
 // 引入数据表模型
-const Job = Sequelize.import('../schema/job.js');
+const Job = Sequelize.import('../../schema/job/job.js');
 
 
 

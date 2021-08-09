@@ -22,4 +22,3 @@ const sequelize = new Sequelize('koa', 'root', 'yjh123456', {
 module.exports = {
     sequelize
 };
-
