@@ -121,7 +121,7 @@ app.use(async (ctx, next) => {
 app.use(koajwt({
     secret: '123456'
 }).unless({
-path: [/^\/user\/regist/, /^\/user\/login/, /^\/public\*/,/^\/static/,/^\/job\*/]
+path: [/^\/user\/regist/, /^\/user\/login/, /^\/public\*/,/^\/static/]
 
 }))
 module.exports = app

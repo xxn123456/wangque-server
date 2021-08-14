@@ -10,10 +10,10 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: true,
                 autoIncrement: true
             },
-            userName: {
+            username: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                field: 'userName'
+                field: 'username'
             },
             password: {
                 type: DataTypes.STRING,
@@ -24,6 +24,11 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: false,
                 field: 'avatar'
+            },
+            role:{
+                type: DataTypes.STRING,
+                allowNull: false,
+                field: 'role'
             },
             createdAt: {
                 type: DataTypes.DATE,

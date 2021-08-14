@@ -9,9 +9,30 @@ const {
 
 // 引入数据表模型
 const Msg = Sequelize.import('../schema/msg.js');
+
+// 引入数据表模型
+const Blog = Sequelize.import('../schema/blog.js');
+
+
+const User = Sequelize.import('../schema/user');
+
+
+Msg.belongsTo(Blog, {
+    foreignKey: 'article_id'
+});
+
+
+Msg.belongsTo(User, {
+    foreignKey: 'user_id'
+})
+
+
+
 Msg.sync({
     force: false
 }); //自动创建表
+
+
 
 class MsgModel {
     /**
@@ -23,9 +44,8 @@ class MsgModel {
     static async create(data) {
         return await Msg.create({
             content: data.content, //标题
-            articleId: data.articleId,
-            qq:data.qq,
-            qqAvtor:data.qqAvtor
+            article_id: data.article_id,
+            user_id: data.user_id
         });
     }
 
@@ -33,9 +53,8 @@ class MsgModel {
     static async upDate(data) {
         return await Msg.update({
             content: data.content,
-            articleId: data.articleId,
-            qq:data.qq,
-            qqAvtor:data.qqAvtor
+            article_id: data.article_id,
+            user_id: data.user_id
         }, {
             where: {
                 id: data.id
@@ -50,15 +69,15 @@ class MsgModel {
             }
         });
     }
-    
+
     // 对文章批量删除
-    static async bacthDel(data) {
-                return await Msg.destroy({
-                    where: {
-                        id: data
-                    }
-                })
-            }
+    static async bacthDel(data) {
+        return await Msg.destroy({
+            where: {
+                id: data
+            }
+        })
+    }
     /**
      * 查询文章的详情
      * @param id 文章ID
@@ -78,31 +97,56 @@ class MsgModel {
 
         let criteria = [];
 
-        if(data.qq){
-            criteria.push({qq:data.qq})
+        if (data.user_id) {
+            criteria.push({
+                user_id: data.user_id
+            })
         }
-        if(data.startTime||data.endTime){
-            criteria.push({           
+        if (data.startTime || data.endTime) {
+            criteria.push({
                 createdAt: {
                     [Op.between]: [new Date(data.startTime), new Date(data.endTime)]
                 }
             })
-           
+
         }
 
         return await Msg.findAndCountAll({
             where: {
-                [Op.and]:criteria
+                [Op.and]: criteria
             },
             //offet去掉前多少个数据
             offset,
             //limit每页数据数量
-            limit: limit
+            limit: limit,
+            include: [
+                {
+                    model: Blog
+                },
+                {
+                    model: User
+                }
+            ]
 
         })
-        
 
-   
+
+
+
+    }
+
+
+     // 对文章类别进行搜索分页显示
+     static async findMsgByArticle(data) {
+       
+        return await Msg.findAndCountAll({
+            where: {
+                article_id: data.article_id
+            }
+        })
+
+
+
 
     }
 

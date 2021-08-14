@@ -13,22 +13,18 @@ const Blog = Sequelize.import('../schema/blog.js');
 
 const BlogType = Sequelize.import('../schema/articleType.js');
 
-
 const User = Sequelize.import('../schema/user.js');
+
 
 // 进行表关联查询
 
+Blog.belongsTo(BlogType, {
+    foreignKey: 'articleTypeId'
+  });
 
-
-Blog.hasOne(BlogType, {
-    foreignKey: 'id',
-    targetKey: 'articleTypeId'
-});
-
-Blog.hasOne(User, {
-    foreignKey: 'id',
-    targetKey: 'userId'
-});
+Blog.belongsTo(User, {
+    foreignKey: 'userId'
+  });
 
 
 
@@ -90,13 +86,24 @@ class BlogModel {
      * @returns {Promise<Model>}
      */
     static async detail(id) {
-        console.log("开始查找这条信息", id)
         return await Blog.findOne({
             where: {
                 id
             }
         });
     }
+
+    static async search(data) {
+        return await Blog.findAll({
+            where: {
+                title:{
+                    [Op.like]:'%' +data.title + '%'
+                }
+            }
+        });
+    }
+
+     
 
     // 对文章类别进行搜索分页显示
     static async findAll(data) {
@@ -139,6 +146,8 @@ class BlogModel {
                 [Op.and]:criteria
             
             },
+            offset,
+            limit,
             include: [{
                     model: BlogType
                 },
@@ -149,6 +158,7 @@ class BlogModel {
 
         });
     }
+
 
 }
 

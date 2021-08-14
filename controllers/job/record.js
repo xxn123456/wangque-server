@@ -156,21 +156,11 @@ class RecordController {
         try {
             let data = await RecordModel.detail(req.id);
 
-            if (data != null) {
-                ctx.response.status = 200;
-                ctx.body = {
-                    code: 200,
-                    msg: '查找文章详情成功',
-                    data
-                }
-
-            } else {
-                ctx.response.status = 200;
-                ctx.body = {
-                    code: 200,
-                    msg: '没有这篇文章'
-                  
-                }
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: '查找文章详情成功',
+                data
             }
 
         } catch (err) {

@@ -14,22 +14,16 @@ module.exports = function(sequelize, DataTypes) {
             field: 'content'
         },
         //对应文章id
-        articleId: {
+        article_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'articleId',
+            field: 'article_id',
         },
         // 评价人
-        qq: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            field: 'qq'
-        },
-        // qq 头像
-        qqAvtor: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            field: 'qqAvtor'
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'user_id'
         },
         // 创建时间
         createdAt: {

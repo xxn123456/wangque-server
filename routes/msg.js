@@ -9,9 +9,15 @@ const validator = require("../util/checkToken.js")
 router.post('/create', validator,msgController.create)
 router.post('/findAll', validator,msgController.findAll)
 
+
+router.post('/findMsgByArticle', validator,msgController.findMsgByArticle)
+
 router.post('/updata', validator,msgController.updata)
 
 router.post('/del',validator, msgController.del)
+
+
+
 
 router.post('/batchDel', validator,msgController.batchDel)
 

@@ -38,6 +38,12 @@ module.exports = function(sequelize, DataTypes) {
            
             field: 'userId'
         },
+
+        url: {
+            type: DataTypes.STRING,
+           
+            field: 'url'
+        },
         content: {
             type: DataTypes.TEXT,
            

@@ -12,9 +12,9 @@ class BlogController {
 
         let req = ctx.request.body;
         try {
-             
+
             const data = await BlogModel.create(req);
-        
+
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -24,7 +24,7 @@ class BlogController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '创建文章失败',
                 data: err
             }
@@ -39,11 +39,11 @@ class BlogController {
     static async update(ctx) {
         let req = ctx.request.body;
         try {
-             
+
             let ret = await BlogModel.update(req);
-           
-            let blogDetail =await BlogModel.detail(req.id);
-        
+
+            let blogDetail = await BlogModel.detail(req.id);
+
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -53,7 +53,7 @@ class BlogController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '修改文章失败',
                 data: err
             }
@@ -68,9 +68,9 @@ class BlogController {
     static async del(ctx) {
         let req = ctx.request.body;
         try {
-             
+
             const data = await BlogModel.del(req.id);
-        
+
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -80,7 +80,7 @@ class BlogController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '删除文章失败',
                 data: err
             }
@@ -98,11 +98,11 @@ class BlogController {
         if (req.batchList) {
             try {
                 //创建文章模型
-                const data=await BlogModel.bacthDel(req.batchList);
+                const data = await BlogModel.bacthDel(req.batchList);
                 ctx.response.status = 200;
                 ctx.body = {
                     code: 200,
-                    articleType:data,
+                    articleType: data,
                     des: '批量删除文章类别成功',
                 }
             } catch (err) {
@@ -127,32 +127,23 @@ class BlogController {
     static async findAll(ctx) {
         let req = ctx.request.body;
 
-        let  data = await BlogModel.findAll(req);
-        ctx.response.status = 200;
-        ctx.body = {
-            code: 200,
-            msg: '查找文章成功',
-            data
+        try {
+            let data = await BlogModel.findAll(req);
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: '查找文章成功',
+                data
+            }
+        } catch (err) {
+            ctx.response.status = 416;
+            ctx.body = {
+                code: 416,
+                msg: '查找文章失败',
+                data: err
+            }
+
         }
-
-      
-        // try {
-        //     let  data = await BlogModel.finAll(req);
-        //     ctx.response.status = 200;
-        //     ctx.body = {
-        //         code: 200,
-        //         msg: '查找文章成功',
-        //         data
-        //     }
-        // } catch (err) {
-        //     ctx.response.status = 416;
-        //     ctx.body = {
-        //         code: 416 ,
-        //         msg: '查找文章失败',
-        //         data: err
-        //     }
-
-        // }
 
 
     }
@@ -162,7 +153,7 @@ class BlogController {
     static async findOne(ctx) {
         let req = ctx.request.body;
         try {
-            let  data = await BlogModel.detail(req.id);
+            let data = await BlogModel.detail(req.id);
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
@@ -172,8 +163,35 @@ class BlogController {
         } catch (err) {
             ctx.response.status = 416;
             ctx.body = {
-                code: 416 ,
+                code: 416,
                 msg: '查找文章详情失败',
+                data: err
+            }
+
+        }
+
+
+    }
+
+    // 模糊搜索
+
+    static async search(ctx) {
+        let req = ctx.request.body;
+
+
+        try {
+            let data = await BlogModel.search(req);
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: '搜索文章详情成功',
+                data
+            }
+        } catch (err) {
+            ctx.response.status = 416;
+            ctx.body = {
+                code: 416,
+                msg: '搜索文章详情失败',
                 data: err
             }
 

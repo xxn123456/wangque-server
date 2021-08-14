@@ -11,8 +11,11 @@ router.post('/regist', userController.create)
 
 
 
+
 //获取用户信息
 router.get('/getUserInfo', userController.getUserInfo)
+
+router.post('/findAll', userController.findAll)
 
 
 

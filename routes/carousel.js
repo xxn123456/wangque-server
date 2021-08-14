@@ -7,7 +7,7 @@ const validator = require("../util/checkToken.js")
 //密码登陆
 router.post('/create', validator,carouselController.create)
 
-router.post('/findAll', validator,carouselController.findAll)
+router.post('/findAll',carouselController.findAll)
 
 
 router.post('/update',validator, carouselController.updata)

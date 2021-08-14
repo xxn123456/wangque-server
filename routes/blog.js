@@ -43,9 +43,12 @@ router.post('/upBook',upload.single('book'), async (ctx, next) => {
 //密码登陆
 router.post('/create',validator,blogController.create)
 
-router.post('/findAll',validator,blogController.findAll)
+router.post('/findAll',blogController.findAll)
 
-router.post('/findOne',validator,blogController.findOne)
+router.post('/findOne',blogController.findOne)
+
+
+router.post('/search',blogController.search)
 
 router.post('/update',validator, blogController.update)
 

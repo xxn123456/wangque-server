@@ -7,7 +7,7 @@ const validator = require("../util/checkToken.js")
 // 创建文章类别
 
 router.post('/create',validator,articleTypeController.create)
-router.post('/findAll',validator,articleTypeController.findAll)
+router.post('/findAll',articleTypeController.findAll)
 
 router.post('/updata',validator,articleTypeController.updata)
 

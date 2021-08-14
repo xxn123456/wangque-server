@@ -10,9 +10,25 @@ const {
 // 引入数据表模型
 const ArticleType = Sequelize.import('../schema/articleType.js');
 
+const Blog = Sequelize.import('../schema/blog.js');
+
+ArticleType.hasMany(Blog, {
+        foreignKey: 'articleTypeId',
+        sourceKey: 'id'
+    });
+
+
+
+
+
+
+
 ArticleType.sync({
     force: false
 }); //自动创建表
+
+
+
 
 class ArticleTypeModel {
     /**
@@ -84,6 +100,10 @@ class ArticleTypeModel {
             criteria.push({categoryName:data.categoryName})
            
         }
+
+        if(data.categoryNum){
+            criteria.push({categoryNum:data.categoryNum})
+        }
         
         if(data.startTime||data.endTime){
             criteria.push({
@@ -102,10 +122,18 @@ class ArticleTypeModel {
                 [Op.and]:criteria
             
             },
+            order: [
+                ['id', 'ASC'],
+            ],
             //offet去掉前多少个数据
             offset,
             //limit每页数据数量
-            limit: limit
+            limit: limit,
+            include: [{
+                model: Blog
+            }
+            
+        ]
 
         })
         

@@ -9,12 +9,11 @@ class MsgController {
     static async create(ctx) {
         //接收客服端
         let req = ctx.request.body;
-        if (req.qq) {
+        if (req.user_id) {
             try {
                 //创建文章模型
-                const ret = await MsgModel.create(req);
+                let data = await MsgModel.create(req);
                 //使用刚刚创建的文章ID查询文章详情，且返回文章详情信息
-                const data = await MsgModel.detail(ret.id);
                 ctx.response.status = 200;
                 ctx.body = {
                     code: 200,
@@ -33,7 +32,7 @@ class MsgController {
             ctx.response.status = 416;
             ctx.body = {
                 code: 200,
-                msg: '评价人qq不能为空'
+                msg: '评价人id不能为空'
             }
         }
     }
@@ -44,7 +43,7 @@ class MsgController {
             try {
                 //创建文章模型
                 await MsgModel.upDate(req);
-                const data = await MsgModel.detail(req.id);
+                const data = await MsgModel.detail(req.user_id);
                 ctx.response.status = 200;
                 ctx.body = {
                     code: 200,
@@ -138,6 +137,9 @@ class MsgController {
         //接收客服端
         let req = ctx.request.body;
         if (req.currentPage && req.pageSize) {
+
+            const data = await MsgModel.finAll(req);
+           
             try {
                 //创建文章模型
                 const data = await MsgModel.finAll(req);
@@ -160,6 +162,29 @@ class MsgController {
             ctx.body = {
                 code: 200,
                 msg: '参数不齐全'
+            }
+        }
+    }
+
+
+    static async findMsgByArticle(ctx) {
+        //接收客服端
+        let req = ctx.request.body;
+        try {
+            //创建文章模型
+            const data = await MsgModel.findMsgByArticle(req);
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                data,
+                des: '查找当前文章下面所有评价成功',
+            }
+        } catch (err) {
+            ctx.response.status = 412;
+            ctx.body = {
+                code: 412,
+                msg: '查找当前文章下面所有评价异常',
+                des: err
             }
         }
     }
