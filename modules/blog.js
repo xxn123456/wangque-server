@@ -21,15 +21,11 @@ const User = Sequelize.import('../schema/user.js');
 Blog.belongsTo(BlogType, {
     foreignKey: 'articleTypeId'
   });
+  
 
 Blog.belongsTo(User, {
     foreignKey: 'userId'
   });
-
-
-
-
-
 
 class BlogModel {
     /**
@@ -56,6 +52,19 @@ class BlogModel {
             visitNum: data.visitNum,
             userId: data.userId,
             content: data.content
+        }, {
+            where: {
+                id: data.id
+            }
+        });
+    }
+
+    static async updateSee(data) {
+
+        return await Blog.update({
+           
+            visitNum: data.visitNum
+           
         }, {
             where: {
                 id: data.id
@@ -94,7 +103,11 @@ class BlogModel {
     }
 
     static async search(data) {
-        return await Blog.findAll({
+        let offset = data.pageSize * (data.currentPage - 1);
+        let limit = parseInt(data.pageSize);
+        return await Blog.findAndCountAll({
+            offset,
+            limit,
             where: {
                 title:{
                     [Op.like]:'%' +data.title + '%'
@@ -111,11 +124,13 @@ class BlogModel {
         let offset = data.pageSize * (data.currentPage - 1);
         let limit = parseInt(data.pageSize);
 
+       
+
         let criteria = [];
 
-        if (data.categoryName) {
+        if (data.recommend) {
             criteria.push({
-                categoryName: data.categoryName
+                recommend: data.recommend
             })
 
         }
@@ -144,7 +159,6 @@ class BlogModel {
         return await Blog.findAndCountAll({
             where: {
                 [Op.and]:criteria
-            
             },
             offset,
             limit,

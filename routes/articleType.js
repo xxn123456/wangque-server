@@ -9,6 +9,8 @@ const validator = require("../util/checkToken.js")
 router.post('/create',validator,articleTypeController.create)
 router.post('/findAll',articleTypeController.findAll)
 
+router.post('/findAllArticleType',articleTypeController.findAll)
+
 router.post('/updata',validator,articleTypeController.updata)
 
 router.post('/del',validator,articleTypeController.del)

@@ -9,6 +9,7 @@ router.post('/create', validator,carouselController.create)
 
 router.post('/findAll',carouselController.findAll)
 
+router.post('/findAllCarousel',carouselController.findAll)
 
 router.post('/update',validator, carouselController.updata)
 

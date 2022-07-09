@@ -1,49 +1,29 @@
-const LogSure = require('../schema/log.js');
+
+const db = require('../config/db');
+
+// 引入sequelize对象
+const Sequelize = db.sequelize;
+
+const {
+    Op
+} = require("sequelize");
+
+// 引入数据表模型
+const LogSure = Sequelize.import('../schema/log.js');
 
 class LogModel {
 
     static async add(content) {
+
+      
     
-        await  LogSure.create(content);
-    }
-
-    static async queryTotal(data) {
-
-
-        let criteria = [];
-        
-
-        if (data.nickname) {
-            criteria.push({
-                nickname: data.nickname
-            })
-        }
-
-        if (data.startTime || data.endTime) {
-            criteria.push({
-                createdAt: {
-                    $gt: new Date(data.startTime),
-                    $lt: new Date(data.endTime)
-                }
-            })
-        }
-
-
-        if (criteria.length != 0) {
-            return await LogSure.find({
-                $and: criteria
-            }).count()
-        } else {
-            return await LogSure.find().count()
-        }
-
+        return await LogSure.create(content);
     }
 
 
     static async findAll(data) {
-        let currentPage = parseInt(data.currentPage);
-        let pageSize = parseInt(data.pageSize);
-
+        let offset = data.pageSize * (data.currentPage - 1);
+        let limit = parseInt(data.pageSize);
         let criteria = [];
 
         if (data.nickname) {
@@ -61,14 +41,17 @@ class LogModel {
             })
         }
 
-        if (criteria.length != 0) {
-            return await LogSure.find({
-                $and: criteria
-            }).skip((currentPage - 1) * pageSize).limit(pageSize)
-        } else {
-            return await LogSure.find().skip((currentPage - 1) * pageSize).limit(pageSize)
-        }
+        return await LogSure.findAndCountAll({
+            where: {
+                [Op.and]:criteria
+            },
+            offset,
+            limit
+         
 
+        });
+
+       
 
     }
 

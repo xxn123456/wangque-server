@@ -128,13 +128,13 @@ class userController {
 
     static async getUserInfo(ctx) {
         const token = ctx.headers.authorization;
-        console.log("是否获取到token",token)
+      
         if (token) {
             try {
-                console.log("开始校验token")
+               
                 const result = await tools.verToken(token);
 
-                console.log("解析的用户信息",result)
+               
 
                 let data = await userModule.getUserInfo(result.user);
                
@@ -144,6 +144,8 @@ class userController {
                     avatar:data.avatar
                    
                 };
+
+                ctx.session.userInfo=info;
                 ctx.status = 200;
 
                 return ctx.body = {

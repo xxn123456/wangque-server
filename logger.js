@@ -2,6 +2,7 @@ let logconfig = {
     des: ""
 }
 
+
 const logModule = require("./modules/log")
 
 const logger = async(ctx, next) => {
@@ -15,23 +16,22 @@ const logger = async(ctx, next) => {
 
     logconfig.des = JSON.stringify(ctx.request.body);
 
+  
+
+  
 
     let sure={
-        nickname:ctx.session.userInfo,
         url:ctx.url,
-        method:ctx.method,
-        desc:logconfig.des,
+        method:ctx.request.method,
         host:ctx.headers['x-forwarded-for'] || ctx.headers['x-real-ip'],
         answer:ms
     }
 
-    console.log("无法响应")
-
   
 
+    // logModule.add(sure);
 
-    logModule.add(sure);
-
+   
     await next();
 
 
@@ -39,7 +39,7 @@ const logger = async(ctx, next) => {
 
     
   
-    // console.log('开始'+ ctx.session.userInfo);
+   
     // console.log(logconfig.des);
     // console.log('结束'+`${ctx.method} ${ctx.url} - ${ms}ms - ${ctx.request.body}`)
 

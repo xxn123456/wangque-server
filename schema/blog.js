@@ -35,18 +35,18 @@ module.exports = function(sequelize, DataTypes) {
         },
         userId: {
             type: DataTypes.INTEGER,
-           
             field: 'userId'
         },
-
+        recommend: {
+            type: DataTypes.INTEGER,
+            field: 'recommend'
+        },
         url: {
             type: DataTypes.STRING,
-           
             field: 'url'
         },
         content: {
             type: DataTypes.TEXT,
-           
             field: 'content'
         },
 

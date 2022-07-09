@@ -63,6 +63,31 @@ class BlogController {
 
     }
 
+    static async updateSee(ctx) {
+        let req = ctx.request.body;
+        try {
+
+            let ret = await BlogModel.updateSee(req);
+          
+            ctx.response.status = 200;
+            ctx.body = {
+                code: 200,
+                msg: '修改文章阅读量',
+                data: ret
+            }
+        } catch (err) {
+            ctx.response.status = 416;
+            ctx.body = {
+                code: 416,
+                msg: '修改文章阅读量',
+                data: err
+            }
+
+        }
+
+
+    }
+
     // 删除文章
 
     static async del(ctx) {
@@ -129,6 +154,7 @@ class BlogController {
 
         try {
             let data = await BlogModel.findAll(req);
+            
             ctx.response.status = 200;
             ctx.body = {
                 code: 200,
