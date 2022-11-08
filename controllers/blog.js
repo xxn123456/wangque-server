@@ -152,24 +152,34 @@ class BlogController {
     static async findAll(ctx) {
         let req = ctx.request.body;
 
-        try {
-            let data = await BlogModel.findAll(req);
-            
-            ctx.response.status = 200;
-            ctx.body = {
-                code: 200,
-                msg: '查找文章成功',
-                data
-            }
-        } catch (err) {
-            ctx.response.status = 416;
-            ctx.body = {
-                code: 416,
-                msg: '查找文章失败',
-                data: err
-            }
 
+        let data = await BlogModel.findAll(req);
+            
+        ctx.response.status = 200;
+        ctx.body = {
+            code: 200,
+            msg: '查找文章成功',
+            data
         }
+
+        // try {
+        //     let data = await BlogModel.findAll(req);
+            
+        //     ctx.response.status = 200;
+        //     ctx.body = {
+        //         code: 200,
+        //         msg: '查找文章成功',
+        //         data
+        //     }
+        // } catch (err) {
+        //     ctx.response.status = 416;
+        //     ctx.body = {
+        //         code: 416,
+        //         msg: '查找文章失败',
+        //         data: err
+        //     }
+
+        // }
 
 
     }

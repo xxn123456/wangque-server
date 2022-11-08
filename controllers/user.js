@@ -134,8 +134,6 @@ class userController {
                
                 const result = await tools.verToken(token);
 
-               
-
                 let data = await userModule.getUserInfo(result.user);
                
                 const info = {

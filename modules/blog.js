@@ -137,9 +137,18 @@ class BlogModel {
 
         
         if (data.categoryId) {
-            criteria.push({
-                articleTypeId: data.categoryId
-            })
+
+            if(data.categoryId!=1){
+
+
+                console.log("数据",data.categoryId);
+
+                criteria.push({
+                    articleTypeId: data.categoryId
+                })
+
+            }
+            
 
         }
 
@@ -162,6 +171,9 @@ class BlogModel {
             },
             offset,
             limit,
+            order: [
+                ['createdAt', 'DESC'],
+            ],
             include: [{
                     model: BlogType
                 },
